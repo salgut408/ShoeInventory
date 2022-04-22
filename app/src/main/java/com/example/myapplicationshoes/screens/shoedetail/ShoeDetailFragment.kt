@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.myapplicationshoes.R
 import com.example.myapplicationshoes.databinding.FragmentShoeDetailBinding
+import com.example.myapplicationshoes.models.Shoe
 import com.example.myapplicationshoes.screens.shoelisting.ShoeListingViewModel
 
 
@@ -26,8 +28,13 @@ class ShoeDetailFragment : Fragment() {
             container, false)
 
         binding.lifecycleOwner = this
-//       binding.shoeListingsViewModel = shoesViewModel
-//        binding.shoe = Shoe()
+       binding.shoeListingsViewModel = shoesViewModel
+        binding.shoe = Shoe()
+
+        binding.saveButton.setOnClickListener {
+            shoesViewModel.addShoe(shoesViewModel.shoe)
+            view?.findNavController()?.navigate(ShoeDetailFragmentDirections.actionShoeDetailFragmentToShoeListingFragment2())
+        }
 
         binding.cancelButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(ShoeDetailFragmentDirections.actionShoeDetailFragmentToShoeListingFragment())
